@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CAPE Pure Math U2 · Module 1 · CFBC · Refactored</title>
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']],processEscapes:true}};</script>
+<script async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#c0392b;--red2:#922b21;--orange:#d35400;--gold:#b7950b;--green:#1e8449;--teal:#148f77;--blue:#1a5276;--purple:#6c3483;--bg:#f7f8fa;--surface:#ffffff;--border:#e1e8ed;--text:#1a2332;--muted:#64748b}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:16px;line-height:1.7}
+.hdr{background:linear-gradient(135deg,#1a0a0a 0%,#7b1010 40%,#c0392b 100%);color:#fff;padding:40px 24px 32px;text-align:center;position:relative;overflow:hidden}
+.hdr::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(255,150,100,.15) 0%,transparent 70%)}
+.hdr h1{font-family:'Syne',sans-serif;font-size:clamp(22px,5vw,40px);font-weight:800;margin-bottom:6px;position:relative}
+.hdr .sub{font-size:14px;opacity:.8;letter-spacing:.5px;margin-bottom:20px;position:relative}
+.badge-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative}
+.badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:600;letter-spacing:.3px}
+.nav{position:sticky;top:0;z-index:200;background:#fff;border-bottom:2px solid var(--border);display:flex;overflow-x:auto;scrollbar-width:none;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{flex-shrink:0;padding:14px 20px;font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:.5px;text-transform:uppercase;color:var(--muted);background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;cursor:pointer;white-space:nowrap;transition:all .2s}
+.nav-btn:hover{color:var(--red)}
+.nav-btn.active{color:var(--red);border-bottom-color:var(--red)}
+main{max-width:900px;margin:0 auto;padding:32px 20px 100px}
+.section{display:none}.section.active{display:block}
+.sec-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:10px}
+.sec-sub{color:var(--muted);font-size:14px;margin-bottom:28px;padding-left:32px}
+.fbox{background:linear-gradient(135deg,#1a0a0a,#3d1515);border-radius:16px;padding:20px 24px;margin-bottom:32px;color:#fff}
+.fbox h3{font-family:'Syne',sans-serif;font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:#f87171;margin-bottom:12px}
+.f-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.f-item{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:8px 12px;font-size:14px}
+.q-card{background:var(--surface);border-radius:18px;padding:26px 28px 22px;margin-bottom:22px;box-shadow:0 2px 16px rgba(0,0,0,.06);border:1px solid var(--border)}
+.q-hdr{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.q-num{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:12px;color:#fff;flex-shrink:0}
+.nA{background:linear-gradient(135deg,var(--red),var(--red2))}
+.nB{background:linear-gradient(135deg,var(--orange),#a84300)}
+.nC{background:linear-gradient(135deg,var(--gold),#8e7106)}
+.nD{background:linear-gradient(135deg,var(--green),#145a32)}
+.nE{background:linear-gradient(135deg,var(--teal),#0e6655)}
+.nF{background:linear-gradient(135deg,var(--blue),#154360)}
+.nG{background:linear-gradient(135deg,var(--purple),#4a235a)}
+.q-info{flex:1}
+.q-label{font-family:'Syne',sans-serif;font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+.q-src{font-size:11px;color:#94a3b8;font-style:italic}
+.q-text{color:var(--text);font-size:15.5px;line-height:1.85;margin-bottom:16px}
+.q-parts{margin:10px 0 14px 24px}
+.q-parts li{margin-bottom:8px;font-size:15.5px;line-height:1.8}
+.btn-row{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:10px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;border:none;transition:all .18s}
+.btn:hover{transform:translateY(-1px)}
+.btn-h{background:#fef3c7;color:#92400e;border:2px solid #fcd34d}.btn-h:hover{background:#fde68a}
+.btn-s{background:#e0f2fe;color:#075985;border:2px solid #7dd3fc}.btn-s:hover{background:#bae6fd}
+.btn-a{background:#dcfce7;color:#166534;border:2px solid #86efac}.btn-a:hover{background:#bbf7d0}
+.panel{display:none;margin-top:14px;border-radius:12px;overflow:hidden;animation:sld .2s ease}
+.panel.open{display:block}
+@keyframes sld{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.p-hint{background:#fffbeb;border:2px solid #fcd34d}
+.p-hint .ph{background:#fef3c7;color:#92400e}
+.p-step{background:#e0f2fe;border:2px solid #7dd3fc}
+.p-step .ph{background:#bae6fd;color:#075985}
+.p-ans{background:#f0fdf4;border:2px solid #86efac}
+.p-ans .ph{background:#dcfce7;color:#166534}
+.ph{display:flex;align-items:center;gap:8px;padding:10px 16px;font-weight:700;font-size:13px;border-bottom:1px solid rgba(0,0,0,.08)}
+.pb{padding:14px 18px}
+.st{padding:8px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:15px;line-height:1.8}
+.st:last-child{border-bottom:none}
+.sl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#94a3b8;margin-bottom:2px}
+.abox{background:linear-gradient(135deg,#dcfce7,#bbf7d0);border:2px solid #86efac;border-radius:10px;padding:12px 16px;margin-top:10px;font-size:15px;font-weight:600;color:#14532d}
+footer{text-align:center;padding:24px;color:var(--muted);font-size:13px;border-top:1px solid var(--border);background:var(--surface);margin-top:40px}
+@media(max-width:600px){.q-card{padding:18px 16px}main{padding:20px 12px 80px}}
+
+/* Refactor polish */
+mjx-container[jax="CHTML"][display="true"]{margin:1em 0 !important; overflow-x:auto; overflow-y:hidden;}
+mjx-container{font-size:1.02em;}
+.q-text mjx-container, .qcard mjx-container, .abox mjx-container, .st mjx-container, .hstep mjx-container, .fchip mjx-container, .formula-item mjx-container { overflow-x:auto; overflow-y:hidden; }
+.abox, .afinal, .formula-item, .fchip { word-break: break-word; }
+</style>
+</head>
+<body>
+<div class="hdr">
+<h1>📐 Pure Mathematics Unit 2</h1>
+<div class="sub">Module 1 · Calculus II &amp; Complex Numbers · CFBC</div>
+<div class="badge-row">
+<span class="badge">Differentiation</span>
+<span class="badge">Integration</span>
+<span class="badge">Complex Numbers</span>
+<span class="badge">CAPE Past Papers</span>
+</div>
+</div>
+<nav class="nav">
+<button class="nav-btn active" onclick="show('diff')">📏 Differentiation</button>
+<button class="nav-btn" onclick="show('integ')">∫ Integration</button>
+<button class="nav-btn" onclick="show('cx')">ℂ Complex Numbers</button>
+</nav>
+<main>
+<!-- ===== DIFFERENTIATION ===== -->
+<div class="section active" id="diff">
+<div class="sec-title"><span>📏</span> Differentiation</div>
+<div class="sec-sub">Implicit · Parametric · Inverse trig · Partial derivatives · Higher derivatives</div>
+<div class="fbox">
+<h3>Key Formulae</h3>
+<div class="f-grid">
+<div class="f-item">$\frac{d}{dx}\sin^{-1}u=\frac{u'}{\sqrt{1-u^2}}$</div>
+<div class="f-item">$\frac{d}{dx}\cos^{-1}u=\frac{-u'}{\sqrt{1-u^2}}$</div>
+<div class="f-item">$\frac{d}{dx}\tan^{-1}u=\frac{u'}{1+u^2}$</div>
+<div class="f-item">Parametric: $\frac{dy}{dx}=\frac{dy/dt}{dx/dt}$</div>
+<div class="f-item">$\frac{d^2y}{dx^2}=\frac{(dy/dx)'_t}{dx/dt}$</div>
+<div class="f-item">Implicit: diff both sides w.r.t. $x$</div>
+</div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nA">D1</div><div class="q-info"><div class="q-label">Implicit Differentiation</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Given that $3y^2-4xy+\sin xy=5$, determine $\dfrac{dy}{dx}$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('d1h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('d1a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="d1h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Differentiate every term w.r.t. $x$. For $\sin xy$: chain rule gives $\cos(xy)\cdot(y+xy')$. Collect all $y'$ terms on one side and factor.</div></div></div>
+
+<div class="panel p-ans" id="d1a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$$\frac{dy}{dx}=\frac{y(4-\cos xy)}{6y-4x+x\cos xy}$$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nB">D2</div><div class="q-info"><div class="q-label">Implicit — Tangent</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Determine the equation of the tangent to the curve $x^4-2xy+3y^2=0$ at the point $(-2,2)$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('d2h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('d2a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="d2h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Differentiate implicitly, evaluate $y'$ at $(-2,2)$, then use $y-y_1=m(x-x_1)$.</div></div></div>
+
+<div class="panel p-ans" id="d2a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$9x-4y+26=0$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nC">D3</div><div class="q-info"><div class="q-label">Inverse Trig Differentiation</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Differentiate $\sin^{-1}\!\left(\dfrac{e^x+a}{3}\right)$ with respect to $x$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('d3h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('d3a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="d3h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Use $\dfrac{d}{dx}\sin^{-1}u=\dfrac{u'}{\sqrt{1-u^2}}$ with $u=\dfrac{e^x+a}{3}$.</div></div></div>
+
+<div class="panel p-ans" id="d3a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$$\frac{d}{dx}\sin^{-1}\!\left(\frac{e^x+a}{3}\right)=\frac{e^x}{\sqrt{9-(e^x+a)^2}}$$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nD">D4</div><div class="q-info"><div class="q-label">Inverse Trig Differentiation</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Differentiate $\cos^{-1}(3x-2)$, expressing your answer in its simplest form.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('d4h')">💡 Hint</button>
+<button class="btn btn-a" onclick="tog('d4a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="d4h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">$\dfrac{d}{dx}\cos^{-1}u=\dfrac{-u'}{\sqrt{1-u^2}}$. Here $u=3x-2$, $u'=3$. Expand $1-(3x-2)^2$.</div></div></div>
+<div class="panel p-ans" id="d4a"><div class="ph">✔ Answer</div><div class="pb">
+<div class="st">$1-(3x-2)^2=-9x^2+12x-3=-3(3x-1)(x-1)$</div>
+<div class="abox">$$\frac{-3}{\sqrt{1-(3x-2)^2}}=\frac{-3}{\sqrt{-3(3x-1)(x-1)}}$$</div>
+</div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nE">D5</div><div class="q-info"><div class="q-label">Partial Derivatives</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Let $f=\sin(3x^2y^4)$.
+    <ol class="q-parts">
+<li>Show that $\dfrac{\partial}{\partial x}\sin(3x^2y^4)=6xy^4\cos(3x^2y^4)$.</li>
+<li>Given that $\dfrac{\partial f}{\partial y}=12x^2y^3\cos(3x^2y^4)$, determine $\dfrac{\partial^2 f}{\partial x\,\partial y}$.</li>
+</ol>
+</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('d5h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('d5a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="d5h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">For (ii): differentiate $12x^2y^3\cos(3x^2y^4)$ w.r.t. $x$ using the product rule.</div></div></div>
+
+<div class="panel p-ans" id="d5a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$$\frac{\partial^2 f}{\partial x\,\partial y}=24xy^3\cos(3x^2y^4)-72x^3y^7\sin(3x^2y^4)$$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nF">D6</div><div class="q-info"><div class="q-label">Parametric — $d^2y/dx^2$</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Given that $x=2t-\sin t$ and $y=1-\cos t$, determine $\dfrac{d^2y}{dx^2}$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('d6h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('d6a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="d6h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">First find $dy/dx=\dfrac{dy/dt}{dx/dt}$. Then $\dfrac{d^2y}{dx^2}=\dfrac{\frac{d}{dt}(dy/dx)}{dx/dt}$.</div></div></div>
+
+<div class="panel p-ans" id="d6a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$$\frac{d^2y}{dx^2}=\frac{2\cos t-1}{(2-\cos t)^3}$$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nG">D7</div><div class="q-info"><div class="q-label">Parametric — Tangent at $t=2$</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">A curve is defined parametrically by $x=(3-2t)^2$, $y=t^3-2t$. Determine the equation of the tangent at the point where $t=2$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('d7h')">💡 Hint</button>
+<button class="btn btn-a" onclick="tog('d7a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="d7h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">$dx/dt=-4(3-2t)$. Evaluate slope and coordinates at $t=2$.</div></div></div>
+<div class="panel p-ans" id="d7a"><div class="ph">✔ Answer</div><div class="pb">
+<div class="st">At $t=2$: $dx/dt=4$, $dy/dt=10$, slope $=10/4=5/2$. Point: $(1,4)$.</div>
+<div class="abox">$y-4=\dfrac{5}{2}(x-1)$, i.e., $2y=5x+3$</div>
+</div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nA">D8</div><div class="q-info"><div class="q-label">Implicit — Complex function</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Let $f(x,y)=4x^2+3xy^2+7x+3y$.
+    <ol class="q-parts">
+<li>Use implicit differentiation to show that $\dfrac{dy}{dx}=-\dfrac{8x+3y^2+7}{3(1+2xy)}$.</li>
+<li>Show that $6\dfrac{\partial f}{\partial y}-10=\left(\dfrac{\partial^2 f}{\partial y^2}\right)\!\left(\dfrac{\partial^2 f}{\partial y\,\partial x}\right)+\dfrac{\partial^2 f}{\partial x^2}$.</li>
+</ol>
+</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('d8h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('d8a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="d8h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">For (ii): compute $\partial f/\partial y=6xy+3$, $\partial^2f/\partial y^2=6x$, $\partial^2f/\partial y\partial x=6y$, $\partial^2f/\partial x^2=8$. Then check both sides.</div></div></div>
+
+<div class="panel p-ans" id="d8a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">Both identities confirmed. $\partial^2f/\partial y^2=6x$, $\partial^2f/\partial y\partial x=6y$, $\partial^2f/\partial x^2=8$.</div></div></div>
+</div>
+</div><!-- end diff -->
+<!-- ===== INTEGRATION ===== -->
+<div class="section" id="integ">
+<div class="sec-title"><span>∫</span> Integration</div>
+<div class="sec-sub">By parts · Reduction formulae · Partial fractions · Substitution · Definite integrals</div>
+<div class="fbox">
+<h3>Key Formulae</h3>
+<div class="f-grid">
+<div class="f-item">IBP: $\int u\,dv=uv-\int v\,du$</div>
+<div class="f-item">$\int\frac{f'}{f}dx=\ln|f|+c$</div>
+<div class="f-item">$\int\frac{dx}{x^2+a^2}=\frac{1}{a}\tan^{-1}\frac{x}{a}+c$</div>
+<div class="f-item">$\int\frac{dx}{\sqrt{a^2-x^2}}=\sin^{-1}\frac{x}{a}+c$</div>
+</div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nA">I1</div><div class="q-info"><div class="q-label">Integration by Parts</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Determine $\displaystyle\int e^{2x}\cos x\,dx$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('i1h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('i1a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="i1h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Apply IBP twice. Let $u=\cos x$, $dv=e^{2x}dx$. After two rounds you'll have $I$ on the RHS — collect and solve.</div></div></div>
+
+<div class="panel p-ans" id="i1a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$$\int e^{2x}\cos x\,dx=\frac{e^{2x}}{5}(2\cos x+\sin x)+c$$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nB">I2</div><div class="q-info"><div class="q-label">Integration by Parts</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Determine $\displaystyle\int e^{2x}\sin 3x\,dx$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('i2h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('i2a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="i2h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Let $I=\int e^{2x}\sin 3x\,dx$. Use IBP twice; $e^{2x}$ is always $dv$. Collect $I$.</div></div></div>
+
+<div class="panel p-ans" id="i2a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$$\int e^{2x}\sin 3x\,dx=\frac{e^{2x}}{13}(2\sin 3x-3\cos 3x)+c$$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nC">I3</div><div class="q-info"><div class="q-label">Reduction Formula</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">
+<ol class="q-parts">
+<li>Derive the reduction formula: $\displaystyle\int\sin^n x\,dx=-\dfrac{1}{n}\sin^{n-1}x\cos x+\dfrac{n-1}{n}\int\sin^{n-2}x\,dx$.</li>
+<li>Hence show that $\displaystyle\int\sin^6 x\,dx=-\dfrac{1}{6}\sin^5 x\cos x-\dfrac{5}{24}\sin^3 x\cos x+\dfrac{5}{8}\int\sin^2 x\,dx$.</li>
+</ol>
+</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('i3h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('i3a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="i3h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Write $\sin^n x=\sin^{n-1}x\cdot\sin x$. IBP with $u=\sin^{n-1}x$, $dv=\sin x$. Use $\cos^2 x=1-\sin^2 x$.</div></div></div>
+
+<div class="panel p-ans" id="i3a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$I_n=-\frac{1}{n}\sin^{n-1}x\cos x+\frac{n-1}{n}I_{n-2}$<br/>$I_6=-\frac{1}{6}\sin^5 x\cos x-\frac{5}{24}\sin^3 x\cos x+\frac{5}{8}I_2$ ✓</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nD">I4</div><div class="q-info"><div class="q-label">Partial Fractions + Integration</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">
+<ol class="q-parts">
+<li>Use partial fractions to show that $\dfrac{x^2+7}{x^2+3x+2}=1+\dfrac{8}{x+1}-\dfrac{11}{x+2}$.</li>
+<li>Hence determine $\displaystyle\int\dfrac{x^2+7}{x^2+3x+2}\,dx$.</li>
+</ol>
+</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('i4h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('i4a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="i4h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Degrees are equal, so do polynomial division first to get $1+\text{proper fraction}$. Denom $=(x+1)(x+2)$.</div></div></div>
+
+<div class="panel p-ans" id="i4a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$$\int\frac{x^2+7}{x^2+3x+2}\,dx=x+8\ln|x+1|-11\ln|x+2|+c$$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nE">I5</div><div class="q-info"><div class="q-label">Trig Substitution</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Using the substitution $x=4\sin\theta$, determine $\displaystyle\int\dfrac{x}{\sqrt{16-x^2}}\,dx$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('i5h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('i5a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="i5h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">$x=4\sin\theta\Rightarrow dx=4\cos\theta\,d\theta$, $\sqrt{16-x^2}=4\cos\theta$. The integral simplifies to $\int\sin\theta\,d\theta$.</div></div></div>
+
+<div class="panel p-ans" id="i5a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$$\int\frac{x}{\sqrt{16-x^2}}\,dx=-\sqrt{16-x^2}+c$$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nF">I6</div><div class="q-info"><div class="q-label">Partial Fractions + Integration</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">
+<ol class="q-parts">
+<li>Use partial fractions to show that $\dfrac{2x+1}{3x^2-x-2}=\dfrac{3}{5(x-1)}+\dfrac{1}{5(3x+2)}$.</li>
+<li>Hence determine $\displaystyle\int\dfrac{2x+1}{3x^2-x-2}\,dx$.</li>
+</ol>
+</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('i6h')">💡 Hint</button>
+<button class="btn btn-a" onclick="tog('i6a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="i6h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">$3x^2-x-2=(3x+2)(x-1)$. Cover-up method for $A$ and $B$.</div></div></div>
+<div class="panel p-ans" id="i6a"><div class="ph">✔ Answer</div><div class="pb">
+<div class="st">$x=1$: $3=5A\Rightarrow A=3/5$. $x=-2/3$: $-1/3=B\cdot(-5/3)\Rightarrow B=1/5$</div>
+<div class="abox">$$\int\frac{2x+1}{3x^2-x-2}\,dx=\frac{3}{5}\ln|x-1|+\frac{1}{15}\ln|3x+2|+c$$</div>
+</div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nG">I7</div><div class="q-info"><div class="q-label">Definite Integral — arctan form</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Evaluate $\displaystyle\int_2^5\dfrac{3x}{x^2-4x+5}\,dx$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('i7h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('i7a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="i7h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Write $3x=\frac{3}{2}(2x-4)+6$. Part 1 gives $\frac{3}{2}\ln|x^2-4x+5|$. Part 2: complete the square in denom, giving arctan.</div></div></div>
+
+<div class="panel p-ans" id="i7a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$$\int_2^5\frac{3x}{x^2-4x+5}\,dx=\frac{3}{2}\ln10+6\tan^{-1}3$$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nA">I8</div><div class="q-info"><div class="q-label">Reduction Formula — $F_n=\int(\ln x)^n$</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Let $F_n(x)=\displaystyle\int(\ln x)^n\,dx$.
+    <ol class="q-parts">
+<li>Show that $F_n(x)=x(\ln x)^n-nF_{n-1}(x)$.</li>
+<li>Hence show that $F_3(2)-F_3(1)=2(\ln2)^3-6(\ln2)^2+12\ln2-6$.</li>
+</ol>
+</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('i8h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('i8a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="i8h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">IBP: $u=(\ln x)^n$, $dv=dx$, $v=x$, $du=n(\ln x)^{n-1}\cdot\frac{1}{x}dx$.</div></div></div>
+
+<div class="panel p-ans" id="i8a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$F_n=x(\ln x)^n-nF_{n-1}$<br/>$F_3(2)-F_3(1)=2(\ln2)^3-6(\ln2)^2+12\ln2-6$ ✓</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nB">I9</div><div class="q-info"><div class="q-label">Partial Fractions — Repeated Quad Factor</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">
+<ol class="q-parts">
+<li>Show that $\dfrac{y^2+2y+1}{y^4+2y^2+1}=\dfrac{1}{y^2+1}+\dfrac{2y}{(y^2+1)^2}$.</li>
+<li>Hence evaluate $\displaystyle\int\dfrac{y^2+2y+1}{y^4+2y^2+1}\,dy$.</li>
+</ol>
+</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('i9h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('i9a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="i9h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">$y^4+2y^2+1=(y^2+1)^2$. Key observation: $y^2+2y+1=(y^2+1)+2y$, so split directly.</div></div></div>
+
+<div class="panel p-ans" id="i9a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$$\int\frac{y^2+2y+1}{y^4+2y^2+1}\,dy=\tan^{-1}y-\frac{1}{y^2+1}+c$$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nC">I10</div><div class="q-info"><div class="q-label">Substitution — $e^x=3\cos\theta$</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Using the substitution $e^x=3\cos\theta$, or otherwise, determine $\displaystyle\int e^x\sqrt{9-e^{2x}}\,dx$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('i10h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('i10a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="i10h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">$e^x=3\cos\theta\Rightarrow e^x dx=−3\sin\theta\,d\theta$ and $\sqrt{9-e^{2x}}=3\sin\theta$. Integrand becomes $9\sin^2\theta\,d\theta$ with a sign.</div></div></div>
+
+<div class="panel p-ans" id="i10a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$$\int e^x\sqrt{9-e^{2x}}\,dx=\frac{1}{2}e^x\sqrt{9-e^{2x}}-\frac{9}{2}\cos^{-1}\!\left(\frac{e^x}{3}\right)+c$$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nD">I11</div><div class="q-info"><div class="q-label">Partial Fractions</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">
+<ol class="q-parts">
+<li>Use partial fractions to prove that $\dfrac{2x+1}{2x^3-x^2+8x-4}=\dfrac{8}{17(2x-1)}-\dfrac{4x-15}{17(x^2+4)}$.</li>
+<li>Hence find $\displaystyle\int\dfrac{2x+1}{2x^3-x^2+8x-4}\,dx$.</li>
+</ol>
+</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('i11h')">💡 Hint</button>
+<button class="btn btn-a" onclick="tog('i11a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="i11h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Factor: $2x^3-x^2+8x-4=x^2(2x-1)+4(2x-1)=(2x-1)(x^2+4)$. Write $\frac{A}{2x-1}+\frac{Bx+C}{x^2+4}$.</div></div></div>
+<div class="panel p-ans" id="i11a"><div class="ph">✔ Answer</div><div class="pb">
+<div class="st">$x=1/2$: $2=\frac{17}{4}A\Rightarrow A=8/17$. Equate to find $B=-4/17$, $C=15/17$.</div>
+<div class="abox">$$\int\frac{2x+1}{2x^3-x^2+8x-4}\,dx=\frac{4}{17}\ln|2x-1|-\frac{2}{17}\ln|x^2+4|+\frac{15}{34}\tan^{-1}\!\frac{x}{2}+c$$</div>
+</div></div>
+</div>
+</div><!-- end integ -->
+<!-- ===== COMPLEX NUMBERS ===== -->
+<div class="section" id="cx">
+<div class="sec-title"><span>ℂ</span> Complex Numbers</div>
+<div class="sec-sub">Cartesian · Modulus-Argument · Exponential form · De Moivre · Roots · Loci</div>
+<div class="fbox">
+<h3>Key Formulae</h3>
+<div class="f-grid">
+<div class="f-item">$|z|=\sqrt{a^2+b^2}$, $\arg z=\arctan(b/a)$</div>
+<div class="f-item">$z=re^{i\theta}=r(\cos\theta+i\sin\theta)$</div>
+<div class="f-item">De Moivre: $z^n=r^n e^{in\theta}$</div>
+<div class="f-item">Roots: $z_k=r^{1/n}e^{i(\theta+2k\pi)/n}$</div>
+<div class="f-item">$|z-A|=|z-B|$: perp bisector of $AB$</div>
+<div class="f-item">$|z-A|=k$: circle centre $A$, radius $k$</div>
+</div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nA">C1</div><div class="q-info"><div class="q-label">Square Root of Complex Number</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Calculate the square root of the complex number $2-3i$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('c1h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('c1a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="c1h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Let $\sqrt{2-3i}=a+bi$. Square: $a^2-b^2=2$, $2ab=-3$. Also $a^2+b^2=|2-3i|=\sqrt{13}$.</div></div></div>
+
+<div class="panel p-ans" id="c1a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$$\sqrt{2-3i}=\pm\!\left(\sqrt{\tfrac{2+\sqrt{13}}{2}}-i\sqrt{\tfrac{\sqrt{13}-2}{2}}\right)\approx\pm(1.674-0.896i)$$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nB">C2</div><div class="q-info"><div class="q-label">Locus — Perpendicular Bisector</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">A point $z$ moves such that $|z-2-3i|=|4-2i-z|$.
+    <ol class="q-parts">
+<li>Sketch the locus of $z$ on an Argand diagram.</li>
+<li>Determine the Cartesian equation of the locus of $z$.</li>
+</ol>
+</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('c2h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('c2a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="c2h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">$|z-A|=|z-B|$ means equal distance from $A=(2,3)$ and $B=(4,-2)$. Locus = perpendicular bisector of $AB$.</div></div></div>
+
+<div class="panel p-ans" id="c2a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">Cartesian equation: $4x-10y=7$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nC">C3</div><div class="q-info"><div class="q-label">De Moivre — Show $(1+3i)^4=28-96i$</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Use De Moivre's theorem to show that $(1+3i)^4=28-96i$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('c3h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('c3a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="c3h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">$r=\sqrt{10}$, $\cos\theta=1/\sqrt{10}$, $\sin\theta=3/\sqrt{10}$. Use double-angle twice to get $\cos4\theta$ and $\sin4\theta$.</div></div></div>
+
+<div class="panel p-ans" id="c3a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$(1+3i)^4=100(\cos4\theta+i\sin4\theta)=100\!\left(\frac{7}{25}-\frac{24i}{25}\right)=28-96i$ ✓</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nD">C4</div><div class="q-info"><div class="q-label">Quadratic from Complex Root</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">One root of a quadratic equation is given as $4-7i$. Determine the quadratic equation with real coefficients which has the root $4-7i$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('c4h')">💡 Hint</button>
+<button class="btn btn-a" onclick="tog('c4a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="c4h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Real coefficients $\Rightarrow$ other root is $4+7i$. Form $(z-(4-7i))(z-(4+7i))=(z-4)^2+49$.</div></div></div>
+<div class="panel p-ans" id="c4a"><div class="ph">✔ Answer</div><div class="pb">
+<div class="st">Sum of roots $=8$, product $=16+49=65$</div>
+<div class="abox">$z^2-8z+65=0$</div>
+</div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nE">C5</div><div class="q-info"><div class="q-label">Division in Polar Form</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Two complex numbers: $z_1=\sqrt{\frac{5}{3}}+\sqrt{5}\,i$, $z_2=2-2i$.
+    <ol class="q-parts">
+<li>Show that $\dfrac{z_1}{z_2}=\sqrt{\dfrac{5}{6}}\,e^{i\cdot 7\pi/12}$.</li>
+<li>Hence, without using a calculator, determine $\left(\dfrac{z_1}{z_2}\right)^2$.</li>
+</ol>
+</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('c5h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('c5a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="c5h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">$\arg z_1=\pi/3$ (since $\sqrt{5}/\sqrt{5/3}=\sqrt{3}=\tan\pi/3$). $\arg z_2=-\pi/4$. Subtract arguments for division.</div></div></div>
+
+<div class="panel p-ans" id="c5a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$\left(\dfrac{z_1}{z_2}\right)^2=-\dfrac{5\sqrt{3}}{12}-\dfrac{5i}{12}$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nF">C6</div><div class="q-info"><div class="q-label">De Moivre — $(-1+\sqrt{3}\,i)^7$</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">
+<ol class="q-parts">
+<li>Write $z=(-1+\sqrt{3}\,i)^7$ in the form $re^{i\theta}$.</li>
+<li>Hence prove that $(-1+\sqrt{3}\,i)^7=64(-1+\sqrt{3}\,i)$.</li>
+</ol>
+</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('c6h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('c6a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="c6h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">$-1+\sqrt{3}\,i=2e^{i2\pi/3}$. Raise to power 7: $2^7e^{i14\pi/3}$. Reduce $14\pi/3$ mod $2\pi$.</div></div></div>
+
+<div class="panel p-ans" id="c6a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$(-1+\sqrt{3}\,i)^7=128e^{i2\pi/3}=64(-1+\sqrt{3}\,i)$ ✓</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nG">C7</div><div class="q-info"><div class="q-label">Complex Number from Two Arg Conditions</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">A complex number $z$ is such that $\arg(z-2)=\dfrac{\pi}{2}$ and $\arg(z)=\dfrac{\pi}{3}$. Determine $z$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('c7h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('c7a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="c7h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">$\arg(z-2)=\pi/2$ means $z-2$ is pure imaginary positive, so $\text{Re}(z)=2$.</div></div></div>
+
+<div class="panel p-ans" id="c7a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$z=2+2\sqrt{3}\,i$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nA">C8</div><div class="q-info"><div class="q-label">De Moivre — Trig Proof</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Using De Moivre's theorem, prove that $\dfrac{\sin5\theta}{\sin\theta}=5-20\sin^2\theta+16\sin^4\theta$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('c8h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('c8a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="c8h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Expand $(\cos\theta+i\sin\theta)^5$ by binomial. Take imaginary part $=\sin5\theta$. Factor $\sin\theta$. Replace $\cos^2\theta=1-\sin^2\theta$.</div></div></div>
+
+<div class="panel p-ans" id="c8a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$\dfrac{\sin5\theta}{\sin\theta}=5-20\sin^2\theta+16\sin^4\theta$ ✓</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nB">C9</div><div class="q-info"><div class="q-label">De Moivre — $\sin5x$ proof</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Use De Moivre's theorem to prove that $\sin5x=16\sin^5x-20\sin^3x+5\sin x$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('c9h')">💡 Hint</button>
+<button class="btn btn-a" onclick="tog('c9a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="c9h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Expand $(\cos x+i\sin x)^5$, take imaginary part, replace all $\cos^2 x=1-\sin^2 x$.</div></div></div>
+<div class="panel p-ans" id="c9a"><div class="ph">✔ Answer</div><div class="pb">
+<div class="st">$\sin5x=5\cos^4x\sin x-10\cos^2x\sin^3x+\sin^5x$<br/>$=\sin x(5(1-s^2)^2-10(1-s^2)s^2+s^4)$ where $s=\sin x$</div>
+<div class="abox">$\sin5x=16\sin^5x-20\sin^3x+5\sin x$ ✓</div>
+</div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nC">C10</div><div class="q-info"><div class="q-label">De Moivre — Square Root</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Using De Moivre's theorem, determine the square root of $1-i\sqrt{3}$, expressing your answer in radians.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('c10h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('c10a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="c10h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">$1-i\sqrt{3}=2e^{-i\pi/3}$. $\sqrt{z}=\sqrt{2}\,e^{-i\pi/6}$ (and $+\pi$ for second root).</div></div></div>
+
+<div class="panel p-ans" id="c10a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">$$\sqrt{1-i\sqrt{3}}=\pm\sqrt{2}\,e^{-i\pi/6}=\pm\frac{\sqrt{6}-i\sqrt{2}}{2}$$</div></div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nD">C11</div><div class="q-info"><div class="q-label">Complex — Root of Quadratic</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Given that $3z^2-pz+2q=0$ has root $3-5i$, determine the values of $p$ and $q$ where $p,q\in\mathbb{R}$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('c11h')">💡 Hint</button>
+<button class="btn btn-a" onclick="tog('c11a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="c11h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Real coefficients $\Rightarrow$ $3+5i$ is also a root. Use sum $=p/3$ and product $=2q/3$.</div></div></div>
+<div class="panel p-ans" id="c11a"><div class="ph">✔ Answer</div><div class="pb">
+<div class="st">Sum: $6=p/3\Rightarrow p=18$. Product: $9+25=34=2q/3\Rightarrow q=51$</div>
+<div class="abox">$p=18,\quad q=51$</div>
+</div></div>
+</div>
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nE">C12</div><div class="q-info"><div class="q-label">De Moivre — $n$th Derivative</div><div class="q-src">CAPE Past Paper</div></div></div>
+<div class="q-text">Use mathematical induction to prove that $\dfrac{d^n}{dx^n}(e^x\sin x)=2^{n/2}\,e^x\sin\!\left(x+\dfrac{n\pi}{4}\right)$.<br/><small style="color:#64748b">You may use: $\sin x+\cos x=\sqrt{2}\sin(x+\pi/4)$ and $\dfrac{d^{k+1}}{dx^{k+1}}f(x)=\dfrac{d}{dx}\!\left[\dfrac{d^k}{dx^k}f(x)\right]$.</small></div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('c12h')">💡 Hint</button>
+
+<button class="btn btn-a" onclick="tog('c12a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="c12h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Base: $n=1$, $\frac{d}{dx}(e^x\sin x)=e^x\sin x+e^x\cos x=e^x(\sin x+\cos x)=\sqrt{2}e^x\sin(x+\pi/4)=2^{1/2}e^x\sin(x+\pi/4)$ ✓</div></div></div>
+
+<div class="panel p-ans" id="c12a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">By induction, $\dfrac{d^n}{dx^n}(e^x\sin x)=2^{n/2}e^x\sin\!\left(x+\dfrac{n\pi}{4}\right)$ for all $n\geq1$ ✓</div></div></div>
+</div>
+</div><!-- end cx -->
+</main>
+<footer>CFBC · CAPE Pure Mathematics Unit 2 · Module 1 · Questions sourced from past papers · Build 2026</footer>
+<script>
+function show(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const map={diff:0,integ:1,cx:2};
+  document.querySelectorAll('.nav-btn')[map[id]].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function tog(id){
+  const el=document.getElementById(id);
+  if(el) el.classList.toggle('open');
+}
+</script>
+</body>
+</html>
