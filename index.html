@@ -218,8 +218,57 @@ mjx-container{font-size:1.02em;}
 
 <div class="panel p-ans" id="d8a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">Both identities confirmed. $\partial^2f/\partial y^2=6x$, $\partial^2f/\partial y\partial x=6y$, $\partial^2f/\partial x^2=8$.</div></div></div>
 </div>
+
+<!-- 2025 Additions – Differentiation -->
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nB">D9</div><div class="q-info"><div class="q-label">Implicit — Tangent to Curve</div><div class="q-src">CAPE 2025 Paper 02 · Q1(a)</div></div></div>
+<div class="q-text">Determine the equation of the tangent to the curve $x^4 - 2xy + 3y^2 = 0$ at the point $(-2,\,2)$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('d9h')">💡 Hint</button>
+<button class="btn btn-a" onclick="tog('d9a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="d9h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Differentiate implicitly: $4x^3 - 2y - 2x\,\frac{dy}{dx} + 6y\,\frac{dy}{dx}=0$. Collect $\frac{dy}{dx}$ terms and substitute $x=-2,\,y=2$.</div></div></div>
+<div class="panel p-ans" id="d9a"><div class="ph">✔ Answer</div><div class="pb">
+<div class="st"><span class="sl">Implicit differentiation</span>$4x^3-2y-2x\,\dfrac{dy}{dx}+6y\,\dfrac{dy}{dx}=0\;\Rightarrow\;\dfrac{dy}{dx}=\dfrac{2y-4x^3}{6y-2x}$</div>
+<div class="st"><span class="sl">Substitute $(-2,2)$</span>$\dfrac{dy}{dx}=\dfrac{4-(-32)}{12-(-4)}=\dfrac{36}{16}=\dfrac{9}{4}$</div>
+<div class="abox">Tangent: $y-2=\dfrac{9}{4}(x+2)\;\Rightarrow\;y=\dfrac{9}{4}x+\dfrac{13}{2}$</div>
+</div></div>
+</div>
+
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nC">D10</div><div class="q-info"><div class="q-label">Inverse Trig Differentiation — $\sin^{-1}$</div><div class="q-src">CAPE 2025 Paper 02 · Q1(c)</div></div></div>
+<div class="q-text">Differentiate $\sin^{-1}\!\left(\dfrac{e^x+a}{3}\right)$ with respect to $x$, where $a$ is a constant.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('d10h')">💡 Hint</button>
+<button class="btn btn-a" onclick="tog('d10a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="d10h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Use $\dfrac{d}{dx}\sin^{-1}(u)=\dfrac{1}{\sqrt{1-u^2}}\cdot\dfrac{du}{dx}$ with $u=\dfrac{e^x+a}{3}$.</div></div></div>
+<div class="panel p-ans" id="d10a"><div class="ph">✔ Answer</div><div class="pb">
+<div class="st"><span class="sl">Chain rule</span>$\dfrac{du}{dx}=\dfrac{e^x}{3}$. Then $1-u^2=1-\dfrac{(e^x+a)^2}{9}=\dfrac{9-(e^x+a)^2}{9}$.</div>
+<div class="abox">$\dfrac{d}{dx}\sin^{-1}\!\!\left(\dfrac{e^x+a}{3}\right)=\dfrac{e^x}{\sqrt{9-(e^x+a)^2}}$</div>
+</div></div>
+</div>
+
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nD">D11</div><div class="q-info"><div class="q-label">Partial Derivatives — $\sin(3x^2y^4)$</div><div class="q-src">CAPE 2025 Paper 02 · Q2(a)</div></div></div>
+<div class="q-text">Let $f=\sin(3x^2y^4)$.
+<ol class="q-parts">
+<li>Show that $\dfrac{\partial}{\partial x}\sin(3x^2y^4)=6xy^4\cos(3x^2y^4)$.</li>
+<li>Given that $\dfrac{\partial}{\partial y}=12x^2y^3\cos(3x^2y^4)$, determine $\dfrac{\partial^2}{\partial x\,\partial y}\sin(3x^2y^4)$.</li>
+</ol></div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('d11h')">💡 Hint</button>
+<button class="btn btn-a" onclick="tog('d11a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="d11h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Part (i): treat $y$ as constant, differentiate $3x^2y^4$ w.r.t. $x$ to get $6xy^4$, then chain rule. Part (ii): differentiate $\partial f/\partial y$ with respect to $x$ using product rule.</div></div></div>
+<div class="panel p-ans" id="d11a"><div class="ph">✔ Answer</div><div class="pb">
+<div class="st"><span class="sl">Part (i)</span>$\dfrac{\partial f}{\partial x}=\cos(3x^2y^4)\cdot 6xy^4=6xy^4\cos(3x^2y^4)$ ✓</div>
+<div class="st"><span class="sl">Part (ii) — differentiate $\partial f/\partial y$ w.r.t. $x$</span>$\dfrac{\partial^2 f}{\partial x\,\partial y}=\dfrac{\partial}{\partial x}\!\left[12x^2y^3\cos(3x^2y^4)\right]$</div>
+<div class="st">Product rule: $24xy^3\cos(3x^2y^4)+12x^2y^3\cdot(-\sin(3x^2y^4))\cdot 6xy^4$</div>
+<div class="abox">$\dfrac{\partial^2 f}{\partial x\,\partial y}=24xy^3\cos(3x^2y^4)-72x^3y^7\sin(3x^2y^4)$</div>
+</div></div>
+</div>
 </div><!-- end diff -->
-<!-- ===== INTEGRATION ===== -->
 <div class="section" id="integ">
 <div class="sec-title"><span>∫</span> Integration</div>
 <div class="sec-sub">By parts · Reduction formulae · Partial fractions · Substitution · Definite integrals</div>
@@ -396,8 +445,58 @@ mjx-container{font-size:1.02em;}
 <div class="abox">$$\int\frac{2x+1}{2x^3-x^2+8x-4}\,dx=\frac{4}{17}\ln|2x-1|-\frac{2}{17}\ln|x^2+4|+\frac{15}{34}\tan^{-1}\!\frac{x}{2}+c$$</div>
 </div></div>
 </div>
+
+<!-- 2025 Additions – Integration -->
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nE">I12</div><div class="q-info"><div class="q-label">Integration by Parts — $\int e^{2x}\cos x\,dx$</div><div class="q-src">CAPE 2025 Paper 02 · Q1(d)</div></div></div>
+<div class="q-text">Determine $\displaystyle\int e^{2x}\cos x\;dx$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('i12h')">💡 Hint</button>
+<button class="btn btn-a" onclick="tog('i12a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="i12h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Apply integration by parts twice, keeping the same choice (let $u=e^{2x}$). After two rounds, the original integral reappears on the right — collect it and divide.</div></div></div>
+<div class="panel p-ans" id="i12a"><div class="ph">✔ Answer</div><div class="pb">
+<div class="st"><span class="sl">1st IBP</span> $u=e^{2x},\,dv=\cos x\,dx\;\Rightarrow\;\int e^{2x}\cos x\,dx=e^{2x}\sin x-2\int e^{2x}\sin x\,dx$</div>
+<div class="st"><span class="sl">2nd IBP</span> $\int e^{2x}\sin x\,dx=-e^{2x}\cos x+2\int e^{2x}\cos x\,dx$</div>
+<div class="st"><span class="sl">Collect $I=\int e^{2x}\cos x\,dx$</span> $I=e^{2x}\sin x-2\!\left(-e^{2x}\cos x+2I\right)=e^{2x}\sin x+2e^{2x}\cos x-4I$</div>
+<div class="abox">$\displaystyle\int e^{2x}\cos x\,dx=\dfrac{e^{2x}(2\cos x+\sin x)}{5}+c$</div>
+</div></div>
+</div>
+
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nF">I13</div><div class="q-info"><div class="q-label">Partial Fractions + Integration</div><div class="q-src">CAPE 2025 Paper 02 · Q2(b)</div></div></div>
+<div class="q-text">
+<ol class="q-parts">
+<li>Use partial fractions to show that $\dfrac{x^2+7}{x^2+3x+2}=1+\dfrac{8}{x+1}-\dfrac{11}{x+2}$.</li>
+<li>Hence, or otherwise, determine $\displaystyle\int\frac{x^2+7}{x^2+3x+2}\,dx$.</li>
+</ol></div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('i13h')">💡 Hint</button>
+<button class="btn btn-a" onclick="tog('i13a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="i13h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Since degrees are equal, do polynomial long division first: $x^2+7=(x^2+3x+2)\cdot 1+(-3x+5)$. Then decompose $\dfrac{-3x+5}{(x+1)(x+2)}=\dfrac{A}{x+1}+\dfrac{B}{x+2}$.</div></div></div>
+<div class="panel p-ans" id="i13a"><div class="ph">✔ Answer</div><div class="pb">
+<div class="st"><span class="sl">Long division</span>$\dfrac{x^2+7}{x^2+3x+2}=1+\dfrac{-3x+5}{(x+1)(x+2)}$</div>
+<div class="st"><span class="sl">Partial fractions</span>$-3x+5=A(x+2)+B(x+1)$. Set $x=-1$: $8=A$. Set $x=-2$: $11=-B\Rightarrow B=-11$. ✓</div>
+<div class="abox">$\displaystyle\int\frac{x^2+7}{x^2+3x+2}\,dx=x+8\ln|x+1|-11\ln|x+2|+c$</div>
+</div></div>
+</div>
+
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nG">I14</div><div class="q-info"><div class="q-label">Trig Substitution — $\int\frac{x}{\sqrt{16-x^2}}\,dx$</div><div class="q-src">CAPE 2025 Paper 02 · Q2(c)</div></div></div>
+<div class="q-text">Using the substitution $x=4\sin\theta$, determine $\displaystyle\int\frac{x}{\sqrt{16-x^2}}\,dx$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('i14h')">💡 Hint</button>
+<button class="btn btn-a" onclick="tog('i14a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="i14h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">$x=4\sin\theta\Rightarrow dx=4\cos\theta\,d\theta$. Then $\sqrt{16-x^2}=\sqrt{16-16\sin^2\theta}=4\cos\theta$. The integral simplifies to $\int 4\sin\theta\,d\theta$.</div></div></div>
+<div class="panel p-ans" id="i14a"><div class="ph">✔ Answer</div><div class="pb">
+<div class="st"><span class="sl">Substitute</span>$\displaystyle\int\frac{4\sin\theta}{4\cos\theta}\cdot 4\cos\theta\,d\theta=4\int\sin\theta\,d\theta=-4\cos\theta+c$</div>
+<div class="st"><span class="sl">Back-substitute</span>$\cos\theta=\dfrac{\sqrt{16-x^2}}{4}$</div>
+<div class="abox">$\displaystyle\int\frac{x}{\sqrt{16-x^2}}\,dx=-\sqrt{16-x^2}+c$</div>
+</div></div>
+</div>
 </div><!-- end integ -->
-<!-- ===== COMPLEX NUMBERS ===== -->
 <div class="section" id="cx">
 <div class="sec-title"><span>ℂ</span> Complex Numbers</div>
 <div class="sec-sub">Cartesian · Modulus-Argument · Exponential form · De Moivre · Roots · Loci</div>
@@ -573,6 +672,22 @@ mjx-container{font-size:1.02em;}
 <div class="panel p-hint" id="c12h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Base: $n=1$, $\frac{d}{dx}(e^x\sin x)=e^x\sin x+e^x\cos x=e^x(\sin x+\cos x)=\sqrt{2}e^x\sin(x+\pi/4)=2^{1/2}e^x\sin(x+\pi/4)$ ✓</div></div></div>
 
 <div class="panel p-ans" id="c12a"><div class="ph">✔ Answer</div><div class="pb"><div class="abox">By induction, $\dfrac{d^n}{dx^n}(e^x\sin x)=2^{n/2}e^x\sin\!\left(x+\dfrac{n\pi}{4}\right)$ for all $n\geq1$ ✓</div></div></div>
+</div>
+
+<!-- ===== 2025 ADDITIONS – Complex Numbers ===== -->
+<div class="q-card">
+<div class="q-hdr"><div class="q-num nA">C13</div><div class="q-info"><div class="q-label">Square Root of Complex Number</div><div class="q-src">CAPE 2025 Paper 02 · Q1(b)</div></div></div>
+<div class="q-text">Calculate the square root of the complex number $2 - 3i$.</div>
+<div class="btn-row">
+<button class="btn btn-h" onclick="tog('c13h')">💡 Hint</button>
+<button class="btn btn-a" onclick="tog('c13a')">✔ Answer</button>
+</div>
+<div class="panel p-hint" id="c13h"><div class="ph">💡 Hint</div><div class="pb"><div class="st">Let $\sqrt{2-3i}=a+bi$. Square both sides: $a^2-b^2=2$ and $2ab=-3$. Use $|a+bi|^2=|2-3i|$, i.e. $a^2+b^2=\sqrt{13}$. Solve the system.</div></div></div>
+<div class="panel p-ans" id="c13a"><div class="ph">✔ Answer</div><div class="pb">
+<div class="st"><span class="sl">Setup</span>Let $a+bi$ be the square root. Then $a^2-b^2=2$ and $2ab=-3$, so $b=-\tfrac{3}{2a}$.</div>
+<div class="st"><span class="sl">Magnitude</span>$a^2+b^2=\sqrt{4+9}=\sqrt{13}$. Adding: $2a^2=2+\sqrt{13}$, so $a=\sqrt{\dfrac{2+\sqrt{13}}{2}}$.</div>
+<div class="abox">$\sqrt{2-3i}=\pm\!\left(\sqrt{\dfrac{2+\sqrt{13}}{2}}-\dfrac{3}{2\sqrt{\dfrac{2+\sqrt{13}}{2}}}\,i\right)\approx\pm(1.6736-0.8959\,i)$</div>
+</div></div>
 </div>
 </div><!-- end cx -->
 </main>
